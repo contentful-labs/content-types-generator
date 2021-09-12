@@ -8,14 +8,14 @@
     "cf-content-types-generator": "./bin/run"
   },
   "main": "lib/index.js",
-  "bugs": "https://github.com/contentful-labs/cf-content-types-generator/issues",
+  "bugs": "https://github.com/contentful-userland/cf-content-types-generator/issues",
   "engines": {
     "node": ">=12.0.0"
   },
   "oclif": {
     "bin": "cf-content-types-generator"
   },
-  "repository": "contentful-labs/cf-content-types-generator",
+  "repository": "contentful-userland/cf-content-types-generator",
   "files": [
     "/bin",
     "/lib"
@@ -26,14 +26,14 @@
     "@oclif/errors": "latest",
     "@oclif/plugin-help": "^3",
     "cli-ux": "^5.5.1",
-    "contentful": "^8.1.7",
-    "contentful-export": "^7.11.6",
+    "contentful": "^8.4.2",
+    "contentful-export": "^7.13.0",
     "fs-extra": "^9.1.0",
     "lodash": "^4.17.15",
-    "ts-morph": "9.1.0",
+    "ts-morph": "^11.0.3",
     "ts-node": "^9.0.0",
     "tslib": "^2",
-    "type-fest": "^1.0.1"
+    "type-fest": "^2.0.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
@@ -50,9 +50,9 @@
     "jest-fixtures": "^0.6.0",
     "mocha": "^5",
     "nyc": "^15",
-    "semantic-release": "^17.0.7",
+    "semantic-release": "^17.4.4",
     "strip-indent": "^3.0.0",
-    "typescript": "4.2.2"
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc --fix",
