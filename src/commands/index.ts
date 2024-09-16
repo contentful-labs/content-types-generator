@@ -31,6 +31,7 @@ class ContentfulMdg extends Command {
     jsdoc: Flags.boolean({ char: 'd', description: 'add JSDoc comments' }),
     typeguard: Flags.boolean({ char: 'g', description: 'add type guards' }),
     response: Flags.boolean({ char: 'r', description: 'add response types' }),
+    modifier: Flags.string({ char: 'm', description: 'add default modifier (v10 only)' }),
 
     // remote access
     spaceId: Flags.string({ char: 's', description: 'space id' }),
@@ -75,8 +76,27 @@ class ContentfulMdg extends Command {
       });
     }
 
+    const v10Options: ConstructorParameters<typeof V10ContentTypeRenderer>[0] = {};
+
+    if (flags.modifier) {
+      if (!flags.v10) {
+        this.error('"--modifier" option is only available for contentful.js v10 types.');
+      }
+
+      if (
+        flags.modifier !== 'WITHOUT_UNRESOLVABLE_LINKS' &&
+        flags.modifier !== 'WITHOUT_LINK_RESOLUTION'
+      ) {
+        this.error(
+          `--modifier" option only allows values: WITHOUT_UNRESOLVABLE_LINKS | WITHOUT_LINK_RESOLUTION.`,
+        );
+      }
+
+      v10Options.defaultModifier = flags.modifier;
+    }
+
     const renderers: ContentTypeRenderer[] = flags.v10
-      ? [new V10ContentTypeRenderer()]
+      ? [new V10ContentTypeRenderer(v10Options)]
       : [new DefaultContentTypeRenderer()];
     if (flags.localized) {
       if (flags.v10) {

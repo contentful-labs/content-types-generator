@@ -13,6 +13,17 @@ import { RenderContext } from './create-default-context';
 import { createV10Context } from './create-v10-context';
 
 export class V10ContentTypeRenderer extends BaseContentTypeRenderer {
+  defaultModifier: 'WITHOUT_LINK_RESOLUTION' | 'WITHOUT_UNRESOLVABLE_LINKS' | undefined;
+
+  constructor(
+    options: {
+      defaultModifier?: 'WITHOUT_LINK_RESOLUTION' | 'WITHOUT_UNRESOLVABLE_LINKS';
+    } = {},
+  ) {
+    super();
+    if (options.defaultModifier) this.defaultModifier = options.defaultModifier;
+  }
+
   public render(contentType: CFContentType, file: SourceFile): void {
     const context = this.createContext();
 
@@ -101,7 +112,9 @@ export class V10ContentTypeRenderer extends BaseContentTypeRenderer {
     return {
       name: renderTypeGeneric(
         context.moduleName(contentType.sys.id),
-        'Modifiers extends ChainModifiers',
+        `Modifiers extends ChainModifiers${
+          this.defaultModifier ? ` = '${this.defaultModifier}'` : ''
+        }`,
         'Locales extends LocaleCode = LocaleCode',
       ),
       isExported: true,
