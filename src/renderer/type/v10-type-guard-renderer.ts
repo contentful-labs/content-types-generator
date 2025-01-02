@@ -38,9 +38,10 @@ export class V10TypeGuardRenderer extends BaseContentTypeRenderer {
         {
           name: 'entry',
           type: renderTypeGeneric('Entry', 'EntrySkeletonType', 'Modifiers', 'Locales'),
+          hasQuestionToken: true,
         },
       ],
-      statements: `return entry.sys.contentType.sys.id === '${contentType.sys.id}'`,
+      statements: `return entry?.sys?.contentType?.sys?.id === '${contentType.sys.id}'`,
     });
 
     file.organizeImports({
